@@ -6,8 +6,7 @@
     <PokemonOptions :pokemons="pokemonArr.pokemons" @selected="checkAnswer" />
 
     <div v-if="showAnswer">
-      <h2 class="fade-in">{{ message }}</h2>
-      <button @click="newGame">Nuevo Juego</button>
+      <button type="button" class="btn btn-outline-success" @click="newGame">Nuevo Juego</button>
     </div>
   </div>
 </template>
@@ -15,6 +14,8 @@
 <script>
 import { defineAsyncComponent, defineComponent, onMounted, ref } from "vue";
 import getPokemonOptions from "../helpers/getPokemonOptions";
+
+import { showSwalSuccess, showSwalError } from "@/utils/sweetalert2-utils";
 
 export default defineComponent({
   name: "PokemonPage",
@@ -45,9 +46,12 @@ export default defineComponent({
       showAnswer.value = true;
 
       if (selectedId === pokemon.value.id) {
-        message.value = `Es correcto, ${pokemon.value.name}`;
+        message.value = `Su nombre es, ${pokemon.value.name}`;
+        showSwalSuccess(message.value)
       } else {
-        message.value = `Oops, era, ${pokemon.value.name}`;
+        message.value = `Oops, intenta nuevamente`;
+        showPokemon.value = false;
+        showSwalError(message.value)
       }
     };
 
