@@ -48,8 +48,6 @@ export default defineComponent({
 }
 img {
   height: 200px;
-  position: absolute;
-  right: 40%;
   user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
