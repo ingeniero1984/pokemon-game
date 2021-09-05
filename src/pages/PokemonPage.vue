@@ -3,12 +3,12 @@
   <div v-else>
     <h1>¿Quién es este Pokemon?</h1>
     <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon" />
-    <PokemonOptions :pokemons="pokemonArr.pokemons" @selected="checkAnswer"/>
+    <PokemonOptions :pokemons="pokemonArr.pokemons" @selected="checkAnswer" />
 
-   <div v-if="showAnswer">
-      <h2 class="fade-in">{{message}}</h2>
+    <div v-if="showAnswer">
+      <h2 class="fade-in">{{ message }}</h2>
       <button @click="newGame">Nuevo Juego</button>
-   </div>
+    </div>
   </div>
 </template>
 
@@ -31,13 +31,13 @@ export default defineComponent({
     const pokemon = ref(null);
     const showPokemon = ref(false);
     const showAnswer = ref(false);
-    const message = ref('')
+    const message = ref("");
 
     const mixPokemonArr = async () => {
       pokemonArr.value = await getPokemonOptions();
 
-      const rndInt = Math.floor(Math.random() * 4)
-      pokemon.value = pokemonArr.value.pokemons[ rndInt ]
+      const rndInt = Math.floor(Math.random() * 4);
+      pokemon.value = pokemonArr.value.pokemons[rndInt];
     };
 
     const checkAnswer = (selectedId) => {
@@ -45,23 +45,23 @@ export default defineComponent({
       showAnswer.value = true;
 
       if (selectedId === pokemon.value.id) {
-        message.value = `Es correcto, ${pokemon.value.name}`
+        message.value = `Es correcto, ${pokemon.value.name}`;
       } else {
-        message.value = `Oops, era, ${pokemon.value.name}`
+        message.value = `Oops, era, ${pokemon.value.name}`;
       }
-    }
+    };
 
     const newGame = () => {
-      showPokemon.value = false
-      showAnswer.value = false
-      pokemonArr.value = []
-      pokemon.value = null
-      mixPokemonArr()
-    }
+      showPokemon.value = false;
+      showAnswer.value = false;
+      pokemonArr.value = [];
+      pokemon.value = null;
+      mixPokemonArr();
+    };
 
     onMounted(() => {
-      mixPokemonArr()
-    })
+      mixPokemonArr();
+    });
 
     return {
       newGame,
@@ -71,7 +71,7 @@ export default defineComponent({
       pokemonArr,
       mixPokemonArr,
       showPokemon,
-      checkAnswer
+      checkAnswer,
     };
   },
 });
